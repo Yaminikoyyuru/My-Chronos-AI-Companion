@@ -1,0 +1,66 @@
+{"time": "2026-10-24T10:07:07", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-24T10:07:24", "event": "checkin_result", "outcome": "OK_MOTION", "heard": "", "peak_motion": 0.1108}
+{"time": "2026-10-24T10:07:24", "event": "decision", "action": "cancel_alert", "reason": "OK_MOTION"}
+{"time": "2026-10-24T10:07:43", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-24T10:07:58", "event": "checkin_result", "outcome": "OK_MOTION", "heard": "", "peak_motion": 0.2729}
+{"time": "2026-10-24T10:07:58", "event": "decision", "action": "cancel_alert", "reason": "OK_MOTION"}
+{"time": "2026-10-24T11:25:29", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-24T11:25:46", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0097, "moving_frames": 0}
+{"time": "2026-10-24T11:26:04", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.01, "moving_frames": 0}
+{"time": "2026-10-24T11:26:05", "event": "decision", "action": "escalate_to_physician", "incident": "20261024T055604-8115f1", "risk": "HIGH", "summary": "IMMOBILE detected (simulated immobility (hotkey i)). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-24T11:41:53", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-24T11:42:10", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0739, "moving_frames": 5}
+{"time": "2026-10-24T11:42:28", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.1615, "moving_frames": 7}
+{"time": "2026-10-24T11:42:30", "event": "decision", "action": "escalate_to_physician", "incident": "20261024T061228-021779", "risk": "HIGH", "summary": "IMMOBILE detected (simulated immobility (hotkey i)). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-24T11:43:20", "event": "decision", "action": "reminder_email_sent"}
+{"time": "2026-10-24T11:59:52", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-24T12:00:09", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0451, "moving_frames": 0}
+{"time": "2026-10-24T12:00:27", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0598, "moving_frames": 1}
+{"time": "2026-10-24T12:00:29", "event": "decision", "action": "escalate_to_physician", "incident": "20261024T063027-a72304", "risk": "HIGH", "summary": "IMMOBILE detected (simulated immobility (hotkey i)). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-24T20:26:36", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-24T20:26:53", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0745, "moving_frames": 7}
+{"time": "2026-10-24T20:27:11", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0813, "moving_frames": 19}
+{"time": "2026-10-24T20:27:15", "event": "decision", "action": "escalate_to_physician", "incident": "20261024T145711-0159bc", "risk": "HIGH", "summary": "IMMOBILE detected (simulated immobility (hotkey i)). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-24T20:28:02", "event": "decision", "action": "reminder_email_sent"}
+{"time": "2026-10-24T20:28:50", "event": "decision", "action": "no_physician_ack"}
+{"time": "2026-10-24T20:46:27", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-24T20:46:45", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.1144, "moving_frames": 34}
+{"time": "2026-10-24T20:47:02", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.7335, "moving_frames": 35}
+{"time": "2026-10-24T20:47:10", "event": "decision", "action": "escalate_to_physician", "incident": "20261024T151702-11fce3", "risk": "HIGH", "summary": "IMMOBILE detected (simulated immobility (hotkey i)). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-24T20:47:26", "event": "physician_decision", "status": "DISPATCHED"}
+{"time": "2026-10-24T21:06:07", "event": "trigger", "kind": "FACE_LOST", "evidence": "motion=0.0094, still=0s, face_lost=5s, fall_flag=False"}
+{"time": "2026-10-24T21:06:25", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.039, "moving_frames": 0}
+{"time": "2026-10-24T21:06:43", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0436, "moving_frames": 0}
+{"time": "2026-10-24T21:06:50", "event": "decision", "action": "escalate_to_physician", "incident": "20261024T153643-38810a", "risk": "HIGH", "summary": "FACE_LOST detected (motion=0.0094, still=0s, face_lost=5s, fall_flag=False). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-25T12:31:51", "event": "pause_started", "mode": "break", "auto_resume_in_s": 59}
+{"time": "2026-10-25T12:32:51", "event": "pause_ended", "reason": "timeout"}
+{"time": "2026-10-25T12:32:59", "event": "pause_started", "mode": "break", "auto_resume_in_s": 59}
+{"time": "2026-10-25T12:33:35", "event": "pause_ended", "reason": "patient"}
+{"time": "2026-10-25T12:38:04", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-25T12:43:33", "event": "trigger", "kind": "FACE_LOST", "evidence": "motion=0.0443, still=0s, face_lost=15s, fall_flag=False"}
+{"time": "2026-10-25T12:43:51", "event": "checkin_result", "outcome": "OK_VOICE", "heard": "i am fine", "peak_motion": 0.7972, "moving_frames": 81}
+{"time": "2026-10-25T12:43:51", "event": "decision", "action": "cancel_alert", "reason": "OK_VOICE"}
+{"time": "2026-10-25T12:44:01", "event": "pause_started", "mode": "break", "auto_resume_in_s": 1799}
+{"time": "2026-10-25T12:44:17", "event": "pause_ended", "reason": "distress"}
+{"time": "2026-10-25T12:44:17", "event": "trigger", "kind": "VOICE_DISTRESS", "evidence": "patient said: i need your help"}
+{"time": "2026-10-25T12:44:24", "event": "decision", "action": "escalate_to_physician", "incident": "20261025T071417-8eaaa0", "risk": "HIGH", "summary": "VOICE_DISTRESS detected (patient said: i need your help). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-25T13:04:07", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-25T13:04:27", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.2192, "moving_frames": 28}
+{"time": "2026-10-25T13:04:46", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0491, "moving_frames": 0}
+{"time": "2026-10-25T13:04:55", "event": "decision", "action": "escalate_to_physician", "incident": "20261025T073448-8f1d99", "risk": "HIGH", "summary": "IMMOBILE detected (simulated immobility (hotkey i)). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-26T09:58:38", "event": "trigger", "kind": "FACE_LOST", "evidence": "motion=0.0000, still=0s, face_lost=6s, fall_flag=False"}
+{"time": "2026-10-26T09:58:58", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0669, "moving_frames": 9}
+{"time": "2026-10-26T09:59:18", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.0705, "moving_frames": 9}
+{"time": "2026-10-26T09:59:29", "event": "decision", "action": "escalate_to_physician", "incident": "20261026T042920-eb58f4", "risk": "HIGH", "summary": "FACE_LOST detected (motion=0.0000, still=0s, face_lost=6s, fall_flag=False). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-26T10:10:08", "event": "trigger", "kind": "IMMOBILE", "evidence": "simulated immobility (hotkey i)"}
+{"time": "2026-10-26T10:10:27", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.6204, "moving_frames": 32}
+{"time": "2026-10-26T10:10:46", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.5273, "moving_frames": 17}
+{"time": "2026-10-26T10:10:54", "event": "decision", "action": "escalate_to_physician", "incident": "20261026T044049-ca6eb9", "risk": "HIGH", "summary": "IMMOBILE detected (simulated immobility (hotkey i)). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-26T11:28:51", "event": "trigger", "kind": "FALL_SUSPECTED", "evidence": "motion=0.0000, still=0s, face_lost=2s, fall_flag=True"}
+{"time": "2026-10-26T11:29:02", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "", "peak_motion": 0.7801, "moving_frames": 49}
+{"time": "2026-10-26T11:29:21", "event": "checkin_result", "outcome": "NO_RESPONSE", "heard": "songs", "peak_motion": 0.7618, "moving_frames": 54}
+{"time": "2026-10-26T11:29:28", "event": "decision", "action": "escalate_to_physician", "incident": "20261026T055923-3a3571", "risk": "HIGH", "summary": "FALL_SUSPECTED detected (motion=0.0000, still=0s, face_lost=2s, fall_flag=True). Patient did not confirm safety. Risk assessed as HIGH by rules."}
+{"time": "2026-10-26T11:29:51", "event": "physician_decision", "status": "FALSE_ALARM"}
+{"time": "2026-10-26T11:41:59", "event": "trigger", "kind": "FACE_LOST", "evidence": "motion=0.0000, still=0s, face_lost=15s, fall_flag=False"}
+{"time": "2026-10-26T11:42:21", "event": "checkin_result", "outcome": "OK_VOICE", "heard": "i am fine i am fine", "peak_motion": 0.5109, "moving_frames": 47}
+{"time": "2026-10-26T11:42:22", "event": "decision", "action": "cancel_alert", "reason": "OK_VOICE"}
