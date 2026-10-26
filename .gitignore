@@ -1,1 +1,11 @@
 .env
+.venv/
+__pycache__/
+*.pyc
+clips/
+agent_trace.jsonl
+incidents_local.jsonl
+evaluation_results.*
+report/*.aux
+report/*.log
+report/*.out
