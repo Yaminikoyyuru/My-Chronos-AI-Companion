@@ -1,0 +1,276 @@
+<!doctype html>
+<!--
+  EDIT BEFORE PUBLISHING: search for "YOUR-USERNAME", "VIDEO-LINK" and "YOUR NAME" and replace them.
+  GitHub Pages: repo Settings > Pages > Deploy from branch > main > / (root). Put this file in the repo root.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>ChronosAI Companion</title>
+<meta name="description" content="A vision-and-voice companion for elders living alone. OpenCV 5 sees, the agent asks, AWS alerts a physician who decides.">
+<style>
+:root{
+  --bg:#f2f5f4; --ink:#14262b; --muted:#4a5d61; --line:#c6d3d1; --accent:#0d6666;
+  --alert:#a93d2a; --ok:#2b7549; --panel:#e6edec;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#0f1d21; --ink:#e4edeb; --muted:#9bb0ae; --line:#28393d; --accent:#62cbc3;
+    --alert:#e2866f; --ok:#7dcb9c; --panel:#16282d; }
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:1rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:1.0625rem/1.65 var(--sans)}
+main{max-width:44rem;margin:0 auto;padding:3rem 1.25rem 4rem}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2;letter-spacing:-.01em}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);margin:0 0 .6rem}
+h2{font-size:1.7rem;margin:3.2rem 0 .8rem}
+p{margin:.7rem 0;max-width:40rem}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.lede{font-family:var(--serif);font-size:1.3rem;color:var(--muted);max-width:36rem}
+.links{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin:1.4rem 0 0;padding:0;list-style:none}
+.links a{font-weight:600}
+.sim{margin:2.6rem -1.25rem 0;padding:1.6rem 1.25rem 1.8rem;background:var(--panel);
+  border-block:1px solid var(--line)}
+.sim h2{margin-top:0}
+.picks{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+button{font:inherit;cursor:pointer;color:var(--ink);background:var(--bg);border:1.5px solid var(--ink);
+  border-radius:.4rem;padding:.5rem .9rem}
+button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+button.go{border-color:var(--accent)}
+button.danger{border-color:var(--alert)}
+.evidence{min-height:1.6rem;color:var(--muted);font-size:.98rem;margin:.2rem 0 1rem}
+.log{list-style:none;margin:0;padding:0}
+.log li{display:grid;grid-template-columns:5.2rem 1fr;gap:.2rem .8rem;padding:.55rem 0;border-top:1px solid var(--line)}
+.log .who{font-weight:700}
+.who.robot{color:var(--accent)} .who.aws{color:var(--muted)} .who.agent{color:var(--ok)} .who.cam{color:var(--ink)}
+.log .t{display:block;color:var(--muted);font-size:.88rem;font-weight:400}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.note{font-size:.92rem;color:var(--muted)}
+dl{margin:1rem 0}
+dt{font-family:var(--serif);font-weight:600;font-size:1.15rem;margin-top:1rem}
+dd{margin:.1rem 0 0;max-width:40rem}
+table{border-collapse:collapse;width:100%;font-size:.98rem;margin:.8rem 0}
+th,td{text-align:left;padding:.5rem .6rem .5rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700}
+ul{padding-left:1.2rem;max-width:40rem}
+li{margin:.3rem 0}
+footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+@media (max-width:30rem){.log li{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+
+<h1>ChronosAI Companion</h1>
+<p class="lede">A robot that keeps an elderly person company, notices when something may be wrong, asks before it alarms anyone, and lets a physician decide what happens next.</p>
+<ul class="links">
+  <li><a href="https://github.com/YOUR-USERNAME/Chronos-AI-Companion">Code on GitHub</a></li>
+  <li><a href="VIDEO-LINK">Demo video</a></li>
+  <li><a href="report/report.pdf">Technical report (PDF)</a></li>
+</ul>
+
+<section class="sim" aria-labelledby="sim-h">
+  <h2 id="sim-h">Watch the agent decide</h2>
+  <p>Pick what the camera noticed, then answer for the patient and the physician. What the robot asks and how long it waits depends on what OpenCV saw.</p>
+  <div class="picks" role="group" aria-label="What the camera noticed">
+    <button type="button" data-t="immobile" aria-pressed="false">Sitting very still</button>
+    <button type="button" data-t="fall" aria-pressed="false">Fast drop, then still</button>
+    <button type="button" data-t="lost" aria-pressed="false">Gone from the frame</button>
+  </div>
+  <div class="evidence" id="evidence">Nothing picked yet.</div>
+  <ol class="log" id="log" aria-live="polite"></ol>
+  <div class="actions" id="actions"></div>
+  <p class="note">This page replays the decision logic of the code. It is not connected to a camera or to AWS.</p>
+</section>
+
+<h2>Why this exists</h2>
+<p>Many older people spend long hours with nobody to talk to, and their words are often brushed aside. They also fall, and a fall that nobody notices can turn serious. ChronosAI Companion tries to help with both: it talks, quizzes, plays songs, reads news and reminds about meals and medicines, and it quietly watches for trouble.</p>
+<p>The World Health Organization estimates about 684&nbsp;000 deaths from falls each year, second only to road traffic among unintentional injury deaths. Adults over 60 suffer the most fatal falls, and about 37.3&nbsp;million falls a year need medical attention
+(<a href="https://www.who.int/news-room/fact-sheets/detail/falls">WHO, Falls fact sheet</a>, accessed October 2026).</p>
+
+<h2>How it works</h2>
+<dl>
+  <dt>See</dt>
+  <dd>OpenCV 5 finds the face (YuNet) and measures motion with optical flow. Three situations raise a flag: a possible fall, staying unusually still, or leaving the frame.</dd>
+  <dt>Ask</dt>
+  <dd>The robot speaks first: &ldquo;Are you okay?&rdquo; The question, the waiting time and whether movement counts as an answer depend on what the camera saw. If there is no reply it asks once more.</dd>
+  <dt>Act</dt>
+  <dd>If the person cannot confirm they are safe, the agent saves one snapshot to Amazon S3, builds a review page and emails the physician through Amazon SES.</dd>
+  <dt>Decide</dt>
+  <dd>The physician opens the page and chooses <em>Dispatch</em> or <em>False alarm</em>. The robot reads the decision back from S3 and tells the person what is happening. The robot never dispatches help on its own.</dd>
+</dl>
+
+<h2>What runs on AWS</h2>
+<table>
+  <tr><th>Service</th><th>Use</th></tr>
+  <tr><td>Amazon S3</td><td>Snapshot, incident record, physician review page, physician decision</td></tr>
+  <tr><td>S3 lifecycle rule</td><td>Automatic deletion of stored objects after about a week</td></tr>
+  <tr><td>Amazon SES</td><td>Alert email to the physician</td></tr>
+  <tr><td>CloudWatch Logs</td><td>Every perception-to-action step of the agent</td></tr>
+</table>
+<p>The OpenCV pipeline runs on the local computer. Each decision is also written to <code>agent_trace.jsonl</code>.</p>
+
+<h2>Respect for privacy</h2>
+<ul>
+  <li>No continuous recording. One snapshot is stored only when an alert is escalated.</li>
+  <li>Say &ldquo;I need a break&rdquo; or &ldquo;good night&rdquo; to pause monitoring. Pauses end by themselves, and &ldquo;help&rdquo; always overrides a pause.</li>
+  <li>Stored objects and review links expire automatically.</li>
+</ul>
+
+<h2>What it cannot do yet</h2>
+<ul>
+  <li>Fall detection is a heuristic, not a trained model, and the test set is small (one person).</li>
+  <li>Voice uses Google speech recognition, needs internet and understands English only.</li>
+  <li>On our AWS account DynamoDB, Lambda, SNS and Bedrock were not available, so incident storage uses S3 and risk is rule-based.</li>
+  <li>It is a research prototype, not a medical device, and does not replace emergency services.</li>
+</ul>
+
+<h2>What is next</h2>
+<p>A trained pose model for falls, voice in Telugu and Hindi, and an evaluation with more people. The same see, ask, escalate loop could also watch a driver who leaves the seat or stops responding, with consent and separate in-vehicle testing.</p>
+
+<footer>
+  Built for the OpenCV 5 and AWS competition (Agentic Vision path) by YOUR NAME.
+</footer>
+</main>
+
+<script>
+(function () {
+  var TRIGGERS = {
+    immobile: {
+      evidence: "OpenCV: the face is visible but motion has stayed almost zero for 30 seconds.",
+      ask: "I noticed you have not moved for a while. Are you okay? Please say I am fine.",
+      wait: 8, movement: true
+    },
+    fall: {
+      evidence: "OpenCV: the face dropped fast, then the person was absent or still for over a second.",
+      ask: "I think you may have fallen. Are you hurt? Please say I am fine, or say help.",
+      wait: 6, movement: false
+    },
+    lost: {
+      evidence: "OpenCV: the person was seen, then gone for 15 seconds, last seen low in the frame.",
+      ask: "I cannot see you anymore. Are you okay? Please say something.",
+      wait: 10, movement: false
+    }
+  };
+  var SECOND = "I cannot hear you. If you are okay, say I am fine. Otherwise I will alert your doctor.";
+
+  var log = document.getElementById("log");
+  var actions = document.getElementById("actions");
+  var evidence = document.getElementById("evidence");
+  var picks = document.querySelectorAll(".picks button");
+  var cur = null;
+
+  function add(who, cls, text, note) {
+    var li = document.createElement("li");
+    var w = document.createElement("span");
+    w.className = "who " + cls;
+    w.textContent = who;
+    var body = document.createElement("span");
+    body.textContent = text;
+    if (note) {
+      var n = document.createElement("span");
+      n.className = "t";
+      n.textContent = note;
+      body.appendChild(n);
+    }
+    li.appendChild(w);
+    li.appendChild(body);
+    log.appendChild(li);
+  }
+
+  function setActions(list) {
+    actions.textContent = "";
+    list.forEach(function (a) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = a.label;
+      if (a.cls) b.className = a.cls;
+      b.addEventListener("click", a.fn);
+      actions.appendChild(b);
+    });
+  }
+
+  function cancelled(why) {
+    add("Robot", "robot", "Thank you, I am glad you are okay.");
+    add("Agent", "agent", "Alert cancelled (" + why + "). Written to the trace.");
+    setActions([{ label: "Start again", fn: reset }]);
+  }
+
+  function answers(round) {
+    var list = [{ label: "Patient: \u201CI am fine\u201D", cls: "go", fn: function () { cancelled("voice answer"); } }];
+    if (cur.movement) {
+      list.push({ label: "Patient keeps moving", cls: "go", fn: function () { cancelled("movement for half a second"); } });
+    } else {
+      list.push({ label: "Patient moves but says nothing", fn: function () {
+        add("Camera", "cam", "Movement seen, but for this trigger movement alone does not count as an answer.");
+        advance(round);
+      } });
+    }
+    list.push({ label: "No answer", cls: "danger", fn: function () { advance(round); } });
+    return list;
+  }
+
+  function advance(round) {
+    if (round === 1) {
+      add("Robot", "robot", SECOND, "then waits 8 s");
+      setActions(answers(2));
+    } else {
+      escalate();
+    }
+  }
+
+  function escalate() {
+    add("Robot", "robot", "I could not confirm that you are safe. I am alerting your doctor now. Please stay calm.");
+    add("AWS", "aws", "Snapshot and incident record saved to Amazon S3; review page created.");
+    add("AWS", "aws", "Alert email sent through Amazon SES; trace sent to CloudWatch Logs.");
+    add("Agent", "agent", "Waiting for the physician. The robot checks S3 every few seconds.");
+    setActions([
+      { label: "Physician: Dispatch", cls: "danger", fn: function () {
+        add("Robot", "robot", "Your doctor has dispatched a medical team. Help is on the way. Please stay where you are.");
+        setActions([{ label: "Start again", fn: reset }]);
+      } },
+      { label: "Physician: False alarm", cls: "go", fn: function () {
+        add("Robot", "robot", "Your doctor marked this as a false alarm. Resuming normal monitoring.");
+        setActions([{ label: "Start again", fn: reset }]);
+      } },
+      { label: "Patient: \u201CI am fine\u201D", fn: function () {
+        add("Agent", "agent", "Patient cancelled by voice. The incident is marked as a false alarm.");
+        add("Robot", "robot", "Thank you. I told your doctor that you are fine.");
+        setActions([{ label: "Start again", fn: reset }]);
+      } },
+      { label: "No decision yet", fn: function () {
+        add("Agent", "agent", "Reminder email sent after half of the waiting time.");
+        add("Robot", "robot", "I have not heard from your doctor yet. Please call your emergency contact.");
+        setActions([{ label: "Start again", fn: reset }]);
+      } }
+    ]);
+  }
+
+  function reset() {
+    log.textContent = "";
+    actions.textContent = "";
+    evidence.textContent = "Nothing picked yet.";
+    cur = null;
+    picks.forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+  }
+
+  picks.forEach(function (b) {
+    b.addEventListener("click", function () {
+      picks.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      cur = TRIGGERS[b.getAttribute("data-t")];
+      log.textContent = "";
+      evidence.textContent = cur.evidence;
+      add("Camera", "cam", "Trigger raised. The agent starts a check-in.");
+      add("Robot", "robot", cur.ask, "then waits " + cur.wait + " s");
+      setActions(answers(1));
+    });
+  });
+})();
+</script>
+</body>
+</html>
